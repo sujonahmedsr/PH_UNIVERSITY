@@ -1,40 +1,8 @@
-import { Layout, Menu, MenuProps } from 'antd';
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import { Layout, Menu } from 'antd';
+import { Link, Outlet } from 'react-router-dom';
+import { adminSideBarRoutes } from '../../routes/Admin.route';
 
 const { Header, Content, Footer, Sider } = Layout;
-
-const items: MenuProps["items"] = [
-    {
-        key: "jajsdf1",
-        label: <NavLink to={'/admin'}>Dashboard</NavLink>
-    },
-    {
-        key: "jajsdf2",
-        label: "User Management",
-        children: [
-            {
-                key: "dfksdf",
-                label: <NavLink to={'/admin/create-admin'}>Create Admin</NavLink>
-            },
-            {
-                key: "dfksdf1",
-                label: <NavLink to={'/admin/create-faculty'}>Create Faculty</NavLink>
-            },
-            {
-                key: "dfksdf2",
-                label: <NavLink to={'/admin/create-student'}>Create Student</NavLink>
-            }
-        ]
-    },
-    {
-        key: "jajsdf35",
-        label: "faculty"
-    },
-    {
-        key: "jajsdf5",
-        label: "student"
-    }
-]
 
 function MainLayouts() {
 
@@ -54,7 +22,7 @@ function MainLayouts() {
         <div style={{color: 'white', height: '4rem', textAlign: "center", display: "flex", justifyContent: "center", alignItems: "center", }}>
             <Link style={{color: 'white', fontSize: "1.5rem", fontWeight: "bold"}} to={'/'}> PH_UNI </Link>
         </div>
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={items} />
+        <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={adminSideBarRoutes} />
       </Sider>
       <Layout>
         <Header style={{ padding: 0 }} />

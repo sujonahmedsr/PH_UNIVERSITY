@@ -24,3 +24,4 @@ export const router = createBrowserRouter([
         children: adminRutes
     }
 ])
+
