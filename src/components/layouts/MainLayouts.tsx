@@ -1,28 +1,28 @@
 import { Layout, Menu, MenuProps } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, NavLink, Outlet } from 'react-router-dom';
 
 const { Header, Content, Footer, Sider } = Layout;
 
 const items: MenuProps["items"] = [
     {
         key: "jajsdf1",
-        label: "Dashboard"
+        label: <NavLink to={'/admin'}>Dashboard</NavLink>
     },
     {
         key: "jajsdf2",
-        label: "admin",
+        label: "User Management",
         children: [
             {
                 key: "dfksdf",
-                label: "Crate Student"
+                label: <NavLink to={'/admin/create-admin'}>Create Admin</NavLink>
             },
             {
                 key: "dfksdf1",
-                label: "Crate Faculty"
+                label: <NavLink to={'/admin/create-faculty'}>Create Faculty</NavLink>
             },
             {
                 key: "dfksdf2",
-                label: "Crate Admin"
+                label: <NavLink to={'/admin/create-student'}>Create Student</NavLink>
             }
         ]
     },
@@ -52,7 +52,7 @@ function MainLayouts() {
         }}
       >
         <div style={{color: 'white', height: '4rem', textAlign: "center", display: "flex", justifyContent: "center", alignItems: "center", }}>
-            <h1>PH_UNI</h1>
+            <Link style={{color: 'white', fontSize: "1.5rem", fontWeight: "bold"}} to={'/'}> PH_UNI </Link>
         </div>
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={items} />
       </Sider>
@@ -65,7 +65,7 @@ function MainLayouts() {
               minHeight: 360,
             }}
           >
-            show your content here ?
+            <Outlet></Outlet>
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
