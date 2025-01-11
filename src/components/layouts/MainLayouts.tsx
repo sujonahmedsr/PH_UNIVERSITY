@@ -1,28 +1,48 @@
 import { Layout, Menu } from 'antd';
 import { Link, Outlet } from 'react-router-dom';
-import { adminSideBarRoutes } from '../../routes/Admin.route';
+import Sider from 'antd/es/layout/Sider';
+import { sidebarItemsGenerator } from '../../utils/sidebarItemsGenerator';
+import adminPaths from '../../routes/Admin.route';
+import { facultyPaths } from '../../routes/faculty.routes';
+import { studentPaths } from '../../routes/student.routes';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content } = Layout;
+
+const userRole = {
+  ADMIN: 'admin',
+  FACULTY: 'faculty',
+  STUDENT: 'student',
+};
 
 function MainLayouts() {
+  const role = 'student'
+  let sidebarItems;
+
+  switch(role){
+    case userRole.ADMIN:
+      sidebarItems = sidebarItemsGenerator(adminPaths, userRole.ADMIN);
+      break;
+    case userRole.FACULTY:
+      sidebarItems = sidebarItemsGenerator(facultyPaths, userRole.FACULTY);
+      break;
+    case userRole.STUDENT:
+      sidebarItems = sidebarItemsGenerator(studentPaths, userRole.STUDENT);
+      break;
+    default: break;
+  }
+
+
 
   return (
-    <>
-      <Layout style={{ height: '100vh' }}>
+    <Layout style={{ height: '100vh' }}>
       <Sider
         breakpoint="lg"
         collapsedWidth="0"
-        onBreakpoint={(broken) => {
-          console.log(broken);
-        }}
-        onCollapse={(collapsed, type) => {
-          console.log(collapsed, type);
-        }}
       >
-        <div style={{color: 'white', height: '4rem', textAlign: "center", display: "flex", justifyContent: "center", alignItems: "center", }}>
-            <Link style={{color: 'white', fontSize: "1.5rem", fontWeight: "bold"}} to={'/'}> PH_UNI </Link>
+        <div style={{ color: 'white', height: '4rem', textAlign: "center", display: "flex", justifyContent: "center", alignItems: "center", }}>
+          <Link style={{ color: 'white', fontSize: "1.5rem", fontWeight: "bold" }} to={'/'}> PH_UNI </Link>
         </div>
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={adminSideBarRoutes} />
+        <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={sidebarItems} />
       </Sider>
       <Layout>
         <Header style={{ padding: 0 }} />
@@ -33,15 +53,11 @@ function MainLayouts() {
               minHeight: 360,
             }}
           >
-            <Outlet></Outlet>
+            <Outlet />
           </div>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>
-          Ant Design ©{new Date().getFullYear()} Created by Ant UED
-        </Footer>
       </Layout>
     </Layout>
-    </>
   )
 }
 

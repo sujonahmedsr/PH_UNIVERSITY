@@ -3,7 +3,7 @@ import OfferedCourse from "../pages/Faculty/OfferedCourse";
 
 export const facultyPaths = [
     {
-      name: 'Dashboard',
+      name: 'Faculty Dashboard',
       path: 'dashboard',
       element: <FacultyDashboard />,
     },
