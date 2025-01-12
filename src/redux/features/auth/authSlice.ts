@@ -9,7 +9,7 @@ export type TUser = {
 }
 
 type TinitialState = {
-    user: null | object,
+    user: null | TUser,
     token: null | string
 }
 

@@ -5,8 +5,8 @@ import { sidebarItemsGenerator } from '../../utils/sidebarItemsGenerator';
 import adminPaths from '../../routes/Admin.route';
 import { facultyPaths } from '../../routes/faculty.routes';
 import { studentPaths } from '../../routes/student.routes';
-import { useAppDispatch } from '../../redux/hooks';
-import { logOut } from '../../redux/features/auth/authSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { logOut, useCurrentUser } from '../../redux/features/auth/authSlice';
 
 const { Header, Content } = Layout;
 
@@ -17,10 +17,11 @@ const userRole = {
 };
 
 function MainLayouts() {
-  const role = 'student'
+  const user = useAppSelector(useCurrentUser)
+  
   let sidebarItems;
 
-  switch(role){
+  switch(user!.role){
     case userRole.ADMIN:
       sidebarItems = sidebarItemsGenerator(adminPaths, userRole.ADMIN);
       break;
