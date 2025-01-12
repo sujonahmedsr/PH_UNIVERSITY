@@ -52,7 +52,7 @@ function MainLayouts() {
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={sidebarItems} />
       </Sider>
       <Layout>
-        <Header><Button onClick={handleLogOut}>Log Out</Button></Header>
+        <Header style={{display: "flex", alignItems: "center", justifyContent: "end"}}><Button onClick={handleLogOut}>Log Out</Button></Header>
         <Content style={{ margin: '24px 16px 0' }}>
           <div
             style={{
