@@ -1,10 +1,12 @@
-import { Layout, Menu } from 'antd';
+import { Button, Layout, Menu } from 'antd';
 import { Link, Outlet } from 'react-router-dom';
 import Sider from 'antd/es/layout/Sider';
 import { sidebarItemsGenerator } from '../../utils/sidebarItemsGenerator';
 import adminPaths from '../../routes/Admin.route';
 import { facultyPaths } from '../../routes/faculty.routes';
 import { studentPaths } from '../../routes/student.routes';
+import { useAppDispatch } from '../../redux/hooks';
+import { logOut } from '../../redux/features/auth/authSlice';
 
 const { Header, Content } = Layout;
 
@@ -31,6 +33,11 @@ function MainLayouts() {
     default: break;
   }
 
+  const dispatch = useAppDispatch()
+
+  const handleLogOut = () =>{
+    dispatch(logOut())
+  }
 
 
   return (
@@ -45,7 +52,7 @@ function MainLayouts() {
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={sidebarItems} />
       </Sider>
       <Layout>
-        <Header style={{ padding: 0 }} />
+        <Header><Button onClick={handleLogOut}>Log Out</Button></Header>
         <Content style={{ margin: '24px 16px 0' }}>
           <div
             style={{
