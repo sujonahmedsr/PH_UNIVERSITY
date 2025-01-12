@@ -1,5 +1,5 @@
 import { Button, Layout, Menu } from 'antd';
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import Sider from 'antd/es/layout/Sider';
 import { sidebarItemsGenerator } from '../../utils/sidebarItemsGenerator';
 import adminPaths from '../../routes/Admin.route';
@@ -48,7 +48,7 @@ function MainLayouts() {
         collapsedWidth="0"
       >
         <div style={{ color: 'white', height: '4rem', textAlign: "center", display: "flex", justifyContent: "center", alignItems: "center", }}>
-          <Link style={{ color: 'white', fontSize: "1.5rem", fontWeight: "bold" }} to={'/'}> PH_UNI </Link>
+          <h1 style={{ color: 'white', fontSize: "1.5rem", fontWeight: "bold", cursor: "pointer" }}> PH_UNI </h1>
         </div>
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={sidebarItems} />
       </Sider>
