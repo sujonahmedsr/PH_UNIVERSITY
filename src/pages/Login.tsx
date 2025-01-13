@@ -9,13 +9,18 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import PHForm from "../components/form/PHForm";
 import PHInput from "../components/form/PHInput";
+import { useState } from "react";
 
 const Login = () => {
   const { register, handleSubmit } = useForm()
+  const [error, setError] = useState('')
   const [login] = useLoginMutation()
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const onSubmit = async (data: FieldValues) => {
+    if(data.userId == undefined || data.password == undefined){
+      setError("Something went wrong.!")
+    }
     // const loading = toast.loading('loggin in')
     //   try {
     //     const userInfo = {
@@ -40,6 +45,7 @@ const Login = () => {
         <PHInput type="text" name="userId" label="ID: " />
         <PHInput type="text" name="password" label="Password: " />
         <Button htmlType="submit">Login</Button>
+        <p style={{color: "red", marginTop: "12px"}}>{error}</p>
       </PHForm>
     </Row>
 
