@@ -3,10 +3,11 @@ import { Controller } from "react-hook-form";
 
 type TInputProps = {
     type: string,
-    name: string
+    name: string,
+    label?: string
 }
 
-const PHInput = ({ type, name, label }) => {
+const PHInput = ({ type, name, label }: TInputProps) => {
     return (
         <div style={{ marginBottom: '12px' }}>
             {label ? label : null}
