@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button, Row } from "antd";
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues } from "react-hook-form";
 import { useLoginMutation } from "../redux/features/auth/authApi";
 import { setUser, TUser } from "../redux/features/auth/authSlice";
 import { useAppDispatch } from "../redux/hooks";
@@ -9,34 +9,32 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import PHForm from "../components/form/PHForm";
 import PHInput from "../components/form/PHInput";
-import { useState } from "react";
 
 const Login = () => {
-  const { register, handleSubmit } = useForm()
-  const [error, setError] = useState('')
   const [login] = useLoginMutation()
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const onSubmit = async (data: FieldValues) => {
-    if(data.userId == undefined || data.password == undefined){
-      setError("Something went wrong.!")
-    }
-    // const loading = toast.loading('loggin in')
-    //   try {
-    //     const userInfo = {
-    //       id: data.id,
-    //       password: data.password,
-    //     };
+    const loading = toast.loading('loggin in')
 
-    //   const res = await login(userInfo).unwrap()
-    //   const user = verifyToken(res.data.accessToken) as TUser
-    //   toast.success("Logged in succesfully", {id: loading, duration: 2000})
-    //   dispatch(setUser({ user: user, token: res.data.accessToken }))
-    //   navigate(`/${user.role}/dashboard`)
-    //   } catch (err) {
-    //     toast.error('Some this went wrong', {id: loading, duration: 2000})
-    //   }
-    console.log(data);
+    if (data.userId == undefined || data.password == undefined) {
+      toast.error('Some this went wrong', { id: loading, duration: 2000 })
+    }
+
+    try {
+      const userInfo = {
+        id: data.userId,
+        password: data.password,
+      };
+
+      const res = await login(userInfo).unwrap()
+      const user = verifyToken(res.data.accessToken) as TUser
+      toast.success("Logged in succesfully", { id: loading, duration: 2000 })
+      dispatch(setUser({ user: user, token: res.data.accessToken }))
+      navigate(`/${user.role}/dashboard`)
+    } catch (err) {
+      toast.error('Some this went wrong', { id: loading, duration: 2000 })
+    }
 
   }
   return (
@@ -45,7 +43,6 @@ const Login = () => {
         <PHInput type="text" name="userId" label="ID: " />
         <PHInput type="text" name="password" label="Password: " />
         <Button htmlType="submit">Login</Button>
-        <p style={{color: "red", marginTop: "12px"}}>{error}</p>
       </PHForm>
     </Row>
 
