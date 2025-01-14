@@ -47,7 +47,7 @@ function MainLayouts() {
       <Sider
         breakpoint="lg"
         collapsedWidth="0"
-        style={{ height: '100vh' }}
+        style={{ height: '100vh', position: 'sticky', top: '0', left: '0' }}
       >
         <div style={{ color: 'white', height: '4rem', textAlign: "center", display: "flex", justifyContent: "center", alignItems: "center", }}>
           <h1 style={{ color: 'white', fontSize: "1.5rem", fontWeight: "bold", cursor: "pointer" }}> PH_UNI </h1>
