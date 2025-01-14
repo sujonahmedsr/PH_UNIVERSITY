@@ -18,7 +18,7 @@ const Login = () => {
     const loading = toast.loading('loggin in')
 
     if (data.userId == undefined || data.password == undefined) {
-      toast.error('Some this went wrong', { id: loading, duration: 2000 })
+      toast.error('Some this went wrong', { id: loading })
     }
 
     try {
@@ -29,11 +29,11 @@ const Login = () => {
 
       const res = await login(userInfo).unwrap()
       const user = verifyToken(res.data.accessToken) as TUser
-      toast.success("Logged in succesfully", { id: loading, duration: 2000 })
+      toast.success("Logged in succesfully", { id: loading })
       dispatch(setUser({ user: user, token: res.data.accessToken }))
       navigate(`/${user.role}/dashboard`)
     } catch (err) {
-      toast.error('Some this went wrong', { id: loading, duration: 2000 })
+      toast.error('Some this went wrong', { id: loading })
     }
 
   }

@@ -7,6 +7,7 @@ import { facultyPaths } from '../../routes/faculty.routes';
 import { studentPaths } from '../../routes/student.routes';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { logOut, useCurrentUser } from '../../redux/features/auth/authSlice';
+import { toast } from 'sonner';
 
 const { Header, Content } = Layout;
 
@@ -38,14 +39,15 @@ function MainLayouts() {
 
   const handleLogOut = () =>{
     dispatch(logOut())
+    toast.success("Log Out Successfully.!")
   }
 
-
   return (
-    <Layout style={{ height: '100vh' }}>
+    <Layout style={{ height: '100%' }}>
       <Sider
         breakpoint="lg"
         collapsedWidth="0"
+        style={{ height: '100vh' }}
       >
         <div style={{ color: 'white', height: '4rem', textAlign: "center", display: "flex", justifyContent: "center", alignItems: "center", }}>
           <h1 style={{ color: 'white', fontSize: "1.5rem", fontWeight: "bold", cursor: "pointer" }}> PH_UNI </h1>
