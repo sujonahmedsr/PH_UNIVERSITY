@@ -21,6 +21,7 @@ const CreateAcademicSemester = () => {
         }
         console.log(semesterData);
     }
+    
     const academicSemesterSchema = z.object({
         name: z.string({ required_error: 'Please select a Name' }),
         year: z.string({ required_error: 'Please select a Year' }),
