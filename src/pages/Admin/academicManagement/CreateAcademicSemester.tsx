@@ -1,17 +1,44 @@
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import PHForm from "../../../components/form/PHForm";
-import PHInput from "../../../components/form/PHInput";
-import { Button } from "antd";
+import { Button, Col, Flex } from "antd";
+import PHSelect from "../../../components/form/PHSelect";
+import { monthOptions, semesterOptions, yearOptions } from "../../../constance/academicSemester";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+
 
 const CreateAcademicSemester = () => {
     const onsubmit: SubmitHandler<FieldValues> = (data) => {
-        console.log(data);
+        const name = semesterOptions[Number(data?.name) - 1]
+
+        const semesterData = {
+            name: name?.label,
+            code: name?.value,
+            year: data?.year,
+            startMonth: data?.startMonth,
+            endMonth: data?.endMonth
+        }
+        console.log(semesterData);
     }
+    const academicSemesterSchema = z.object({
+        name: z.string({ required_error: 'Please select a Name' }),
+        year: z.string({ required_error: 'Please select a Year' }),
+        startMonth: z.string({ required_error: 'Please select a Start Month' }),
+        endMonth: z.string({ required_error: 'Please select a End Month' }),
+    })
     return (
-        <PHForm onSubmit={onsubmit}>
-            <PHInput name="name" type="text" label="name"/>
-            <Button htmlType="submit">Submit</Button>
-        </PHForm>
+        <Flex justify="center" align="center">
+            <Col span={6}>
+                <PHForm onSubmit={onsubmit} resolver={zodResolver(academicSemesterSchema)}>
+                    <PHSelect name="name" label="Name" options={semesterOptions} />
+                    <PHSelect name="year" label="Year" options={yearOptions} />
+                    <PHSelect name="startMonth" label="Start Month" options={monthOptions} />
+                    <PHSelect name="endMonth" label="End Month" options={monthOptions} />
+                    <Button htmlType="submit">Submit</Button>
+                </PHForm>
+            </Col>
+        </Flex>
     );
 };
 
