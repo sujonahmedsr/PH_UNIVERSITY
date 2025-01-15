@@ -17,4 +17,9 @@ export type TUserPath = {
     path?: string;
     element?: ReactNode;
     children?: TUserPath[];
-  };
+};
+
+export type TQueryParam = {
+    name: string;
+    value: boolean | React.Key;
+};

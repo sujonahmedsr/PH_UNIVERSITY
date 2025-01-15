@@ -10,11 +10,13 @@ import { useAddAcademicSemesterMutation } from "../../../redux/features/admin/ac
 import { toast } from "sonner";
 import { TResponse } from "../../../types/globalTypes";
 import { TAcademicSemester } from "./AcademicSemester";
+import { useNavigate } from "react-router-dom";
 
 
 
 const CreateAcademicSemester = () => {
     const [addAcademicSemester] = useAddAcademicSemesterMutation()
+    const navigate = useNavigate()
     const onsubmit: SubmitHandler<FieldValues> = async (data) => {
         const toastId = toast.loading('Creating...');
 
@@ -33,6 +35,7 @@ const CreateAcademicSemester = () => {
             if (res.error) {
                 toast.error(res?.error?.data?.message, { id: toastId });
             } else {
+                navigate(`/admin/academic-semester`)
                 toast.success('Semester created', { id: toastId });
             }
 
