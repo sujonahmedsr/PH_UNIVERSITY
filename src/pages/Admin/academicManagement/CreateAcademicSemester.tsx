@@ -53,6 +53,7 @@ const CreateAcademicSemester = () => {
     return (
         <Flex justify="center" align="center">
             <Col span={6}>
+            <h1 style={{fontSize: "20px", fontWeight: "normal", marginBottom: "16px"}}>Create Academic Semester</h1>
                 <PHForm onSubmit={onsubmit} resolver={zodResolver(academicSemesterSchema)}>
                     <PHSelect name="name" label="Name" options={semesterOptions} />
                     <PHSelect name="year" label="Year" options={yearOptions} />
