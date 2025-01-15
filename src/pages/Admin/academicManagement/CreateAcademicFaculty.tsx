@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { useAddAcadmicFacultyMutation } from "../../../redux/features/admin/academicManagement.api";
 import { TResponse } from "../../../types/globalTypes";
 
-type TAcademicFaculty = {
+export type TAcademicFaculty = {
     _id: string;
     name: string;
     createdAt: string;
