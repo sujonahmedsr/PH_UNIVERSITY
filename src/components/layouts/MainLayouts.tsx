@@ -8,6 +8,7 @@ import { studentPaths } from '../../routes/student.routes';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { logOut, useCurrentUser } from '../../redux/features/auth/authSlice';
 import { toast } from 'sonner';
+import { useLogoutMutation } from '../../redux/features/auth/authApi';
 
 const { Header, Content } = Layout;
 
@@ -18,6 +19,7 @@ const userRole = {
 };
 
 function MainLayouts() {
+  const [userLogout] = useLogoutMutation()
   const user = useAppSelector(useCurrentUser)
   
   let sidebarItems;
@@ -39,6 +41,7 @@ function MainLayouts() {
 
   const handleLogOut = () =>{
     dispatch(logOut())
+    userLogout(undefined)
     toast.success("Log Out Successfully.!")
   }
 
