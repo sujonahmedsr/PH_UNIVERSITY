@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button, Col, Flex } from "antd";
 import { FieldValues, SubmitHandler } from "react-hook-form";
@@ -8,6 +9,8 @@ import PHForm from "../../../components/form/PHForm";
 import PHInput from "../../../components/form/PHInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TAcademicFaculty } from "./CreateAcademicFaculty";
+import { useAddAcadmicDepartmentMutation, useAddAcadmicFacultyMutation, useGetAllAcadmicFacultyQuery } from "../../../redux/features/admin/academicManagement.api";
+import PHSelect from "../../../components/form/PHSelect";
 
 export type TAcademicDepartment = {
     _id: string;
@@ -15,41 +18,45 @@ export type TAcademicDepartment = {
     academicFaculty: TAcademicFaculty;
     createdAt: string;
     updatedAt: string;
-  };
+};
 
 const CreateAcademicDepartment = () => {
-    // const [addAcadmicFaculty] = useAddAcadmicFacultyMutation()
+    const [addAcadmicFaculty] = useAddAcadmicDepartmentMutation()
+    const { data: sData, isLoading: sIsLoading } =
+        useGetAllAcadmicFacultyQuery(undefined);
+
+    const academicFacultyOptions = sData?.data?.map((item: any) => ({
+        value: item._id,
+        label: `${item.name}`,
+    }));
     const navigate = useNavigate()
     const onsubmit: SubmitHandler<FieldValues> = async (data) => {
-        // const toastId = toast.loading('Creating...');
+        const toastId = toast.loading('Creating...');
 
         const facultyCreate = {
             name: data?.departmentName,
             academicFaculty: data?.academicFaculty
         }
 
-        console.log(facultyCreate);
-        
+        try {
+            const res = await addAcadmicFaculty(facultyCreate)
+            console.log(res);
 
-        // try {
-        //     const res = ''
-        //     console.log(res);
-            
-        //     if (res.error) {
-        //         toast.error(res?.error?.data?.message, { id: toastId });
-        //     } else {
-        //         navigate(`/admin/academic-faculty`)
-        //         toast.success('Faculty created', { id: toastId });
-        //     }
-        // } catch (err) {
-        //     toast.error('Something went wrong', { id: toastId });
-        // }
+            if (res.error) {
+                toast.error('Something went wrong', { id: toastId });
+            } else {
+                navigate(`/admin/academic-department`)
+                toast.success('Department created', { id: toastId });
+            }
+        } catch (err) {
+            toast.error('Something went wrong', { id: toastId });
+        }
     }
 
     const academicSemesterSchema = z.object({
         departmentName: z.string({ required_error: "Please Enter Department Name." }),
         academicFaculty: z.string({ required_error: "Please Enter Faculty Name." })
-        })
+    })
     return (
         <Flex justify="center" align="center">
             <Col span={6}>
@@ -57,7 +64,7 @@ const CreateAcademicDepartment = () => {
                 <PHForm onSubmit={onsubmit} resolver={zodResolver(academicSemesterSchema)}>
 
                     <PHInput name="departmentName" label="Department Name" type="text" />
-                    <PHInput name="academicFaculty" label="Academic Faculty" type="text" />
+                    <PHSelect name="academicFaculty" label="Academic Faculty" options={academicFacultyOptions} />
 
                     <Button htmlType="submit">Submit</Button>
                 </PHForm>
