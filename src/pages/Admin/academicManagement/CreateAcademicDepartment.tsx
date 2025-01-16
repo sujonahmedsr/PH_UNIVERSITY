@@ -9,7 +9,7 @@ import PHForm from "../../../components/form/PHForm";
 import PHInput from "../../../components/form/PHInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TAcademicFaculty } from "./CreateAcademicFaculty";
-import { useAddAcadmicDepartmentMutation, useAddAcadmicFacultyMutation, useGetAllAcadmicFacultyQuery } from "../../../redux/features/admin/academicManagement.api";
+import { useAddAcadmicDepartmentMutation, useGetAllAcadmicFacultyQuery } from "../../../redux/features/admin/academicManagement.api";
 import PHSelect from "../../../components/form/PHSelect";
 
 export type TAcademicDepartment = {
@@ -22,7 +22,7 @@ export type TAcademicDepartment = {
 
 const CreateAcademicDepartment = () => {
     const [addAcadmicFaculty] = useAddAcadmicDepartmentMutation()
-    const { data: sData, isLoading: sIsLoading } =
+    const { data: sData } =
         useGetAllAcadmicFacultyQuery(undefined);
 
     const academicFacultyOptions = sData?.data?.map((item: any) => ({

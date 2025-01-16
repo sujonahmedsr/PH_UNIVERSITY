@@ -108,7 +108,7 @@ const CreateStudent = () => {
 
 
     return (
-        <Row justify={"center"}>
+        <Row justify={"center"} >
             <Col span={24}>
                 <PHForm onSubmit={onsubmit} defaultValues={studentDefaultValues}>
 
