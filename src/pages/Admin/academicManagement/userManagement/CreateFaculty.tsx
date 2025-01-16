@@ -2,7 +2,7 @@
 const CreateFaculty = () => {
     return (
         <div>
-            This is faculty page 
+            Create Faculty
         </div>
     );
 };

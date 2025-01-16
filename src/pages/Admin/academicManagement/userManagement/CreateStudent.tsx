@@ -2,7 +2,7 @@
 const CreateStudent = () => {
     return (
         <div>
-            This is student page 
+            Create Student
         </div>
     );
 };

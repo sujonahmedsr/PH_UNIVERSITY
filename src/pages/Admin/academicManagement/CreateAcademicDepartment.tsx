@@ -7,6 +7,15 @@ import { z } from "zod";
 import PHForm from "../../../components/form/PHForm";
 import PHInput from "../../../components/form/PHInput";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { TAcademicFaculty } from "./CreateAcademicFaculty";
+
+export type TAcademicDepartment = {
+    _id: string;
+    name: string;
+    academicFaculty: TAcademicFaculty;
+    createdAt: string;
+    updatedAt: string;
+  };
 
 const CreateAcademicDepartment = () => {
     // const [addAcadmicFaculty] = useAddAcadmicFacultyMutation()

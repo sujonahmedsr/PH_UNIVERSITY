@@ -4,10 +4,12 @@ import AcademicSemester from "../pages/Admin/academicManagement/AcademicSemester
 import CreateAcademicDepartment from "../pages/Admin/academicManagement/CreateAcademicDepartment";
 import CreateAcademicFaculty from "../pages/Admin/academicManagement/CreateAcademicFaculty";
 import CreateAcademicSemester from "../pages/Admin/academicManagement/CreateAcademicSemester";
+import CreateAdmin from "../pages/Admin/academicManagement/userManagement/CreateAdmin";
+import CreateFaculty from "../pages/Admin/academicManagement/userManagement/CreateFaculty";
+import CreateStudent from "../pages/Admin/academicManagement/userManagement/CreateStudent";
+import StudentData from "../pages/Admin/academicManagement/userManagement/StudentData";
+import StudentDetails from "../pages/Admin/academicManagement/userManagement/StudentDetails";
 import AdminDashboard from "../pages/Admin/AdminDashboard";
-import CreateAdmin from "../pages/Admin/CreateAdmin";
-import CreateFaculty from "../pages/Admin/CreateFaculty";
-import CreateStudent from "../pages/Admin/CreateStudent";
 
 const adminPaths = [
     {
@@ -53,26 +55,30 @@ const adminPaths = [
     {
         name: 'User Management',
         children: [
-            {
-                name: 'Create Admin',
-                path: 'create-admin',
-                element: <CreateAdmin />,
-            },
-            {
-                name: 'Create Faculty',
-                path: 'create-faculty',
-                element: <CreateFaculty />,
-            },
-            {
-                name: 'Create Student',
-                path: 'create-student',
-                element: <CreateStudent />,
-            },
-            {
-                name: 'Create Member',
-                path: 'create-member',
-                element: <CreateStudent />,
-            },
+          {
+            name: 'Create Student',
+            path: 'create-student',
+            element: <CreateStudent />,
+          },
+          {
+            name: 'Students',
+            path: 'students-data',
+            element: <StudentData />,
+          },
+          {
+            path: 'student-data/:studentId',
+            element: <StudentDetails />,
+          },
+          {
+            name: 'Create Admin',
+            path: 'create-admin',
+            element: <CreateAdmin />,
+          },
+          {
+            name: 'Create Faculty',
+            path: 'create-faculty',
+            element: <CreateFaculty />,
+          },
         ],
     },
 ];
