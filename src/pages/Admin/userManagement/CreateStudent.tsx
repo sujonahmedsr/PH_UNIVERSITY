@@ -13,7 +13,6 @@ import { useGetAcademicDepartmentsQuery, useGetAllSemestersQuery } from "../../.
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 
-
 //! This is only for development
 //! Should be removed
 const studentDefaultValues = {
@@ -53,9 +52,7 @@ const studentDefaultValues = {
 
 const CreateStudent = () => {
     const navigate = useNavigate()
-    const [addStudent, { data, error }] = useAddStudentMutation();
-
-    console.log({ data, error });
+    const [addStudent] = useAddStudentMutation();
 
     const { data: sData, isLoading: sIsLoading } =
         useGetAllSemestersQuery(undefined);
@@ -74,11 +71,6 @@ const CreateStudent = () => {
         label: item.name,
     }));
 
-    console.log(dData);
-    
-
-
-
     const onsubmit: SubmitHandler<FieldValues> = async (data) => {
         const toastId = toast.loading('Creating...');
 
@@ -93,13 +85,12 @@ const CreateStudent = () => {
 
         try {
             const res = await addStudent(formData)
-            console.log(res);
 
             if (res.error) {
                 toast.error('Something went wrong', { id: toastId });
             } else {
                 navigate(`/admin/students-data`)
-                toast.success('Department created', { id: toastId });
+                toast.success('Student created', { id: toastId });
             }
         } catch (err: any) {
             toast.error('Something went wrong', { id: toastId });

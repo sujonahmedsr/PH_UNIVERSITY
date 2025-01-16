@@ -3,7 +3,6 @@ import { TAcademicDepartment } from "./CreateAcademicDepartment";
 
 const AcademicDepartment = () => {
     const {data: academicFaculty} = useGetAcademicDepartmentsQuery(undefined)
-        console.log(academicFaculty?.data);
         
         return (
             <div>
