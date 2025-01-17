@@ -54,7 +54,7 @@ const StudentData = () => {
         <>
             <Table
                 loading={isFetching}
-                columns={columns}
+                // columns={columns}
                 dataSource={tableData}
                 // onChange={onChange}
                 pagination={false}
