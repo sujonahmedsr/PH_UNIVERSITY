@@ -14,9 +14,6 @@ const userManagementApi = baseApi.injectEndpoints({
                       params.append(item.name, item.value as string);
                     });
                   }
-
-                  console.log(params, args);
-                  
                 
                 return {
                     url: '/students',
