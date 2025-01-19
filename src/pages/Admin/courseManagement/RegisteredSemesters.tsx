@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, Dropdown, Table, TableColumnsType, Tag } from "antd";
 import { TSemester } from "../../../type/courseManagement.type";
 import { useState } from "react";
-import { useGetAllRegisteredSemestersQuery } from "../../../redux/features/admin/courseManagement";
+import { useGetAllRegisteredSemestersQuery, useUpdateRegisteredSemesterMutation } from "../../../redux/features/admin/courseManagement";
 import moment from "moment";
+import { toast } from "sonner";
 
 export type TTableData = Pick<TSemester, 'startDate' | 'endDate' | 'status'>;
 const items = [
@@ -23,6 +25,10 @@ const items = [
 
 const RegisteredSemesters = () => {
     const { data: semesterData, isFetching } = useGetAllRegisteredSemestersQuery(undefined)
+
+    const [updateSemesterStatus] = useUpdateRegisteredSemesterMutation()
+
+
     const tableData = semesterData?.data?.map(({ _id, academicSemester, startDate, endDate, status }) => ({
         key: _id,
         name: `${academicSemester.name} ${academicSemester.year}`,
@@ -31,10 +37,28 @@ const RegisteredSemesters = () => {
         status,
     }))
     const [semesterId, setSemesterId] = useState('');
-    console.log(semesterId);
 
-    const handleStatusUpdate = (data: any) => {
-        console.log(data);
+    const handleStatusUpdate = async(data: any) => {
+        const toastId = toast.loading('Creating...');
+        const updateData = {
+            id: semesterId,
+            data: {
+              status: data.key,
+            },
+        }
+
+        try {
+            const res = await updateSemesterStatus(updateData);
+            console.log(res);
+            if (res.error) {
+              toast.error('Something went wrong', { id: toastId });
+            } else {
+              toast.success('Semester Status updated', { id: toastId });
+            }
+          } catch (err) {
+            toast.error('Something went wrong', { id: toastId });
+          }
+        updateSemesterStatus(updateData)
     }
 
     const menuProps = {
