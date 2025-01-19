@@ -65,7 +65,6 @@ const CreateStudent = () => {
         label: `${item.name} ${item.year}`,
     }));
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const departmentOptions = dData?.data?.map((item: any) => ({
         value: item._id,
         label: item.name,
