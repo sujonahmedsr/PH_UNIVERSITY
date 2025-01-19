@@ -11,12 +11,15 @@ import { semesterStatusOptions } from "../../../constance/semester";
 import { toast } from "sonner";
 import { TResponse } from "../../../types/globalTypes";
 import { useAddRegisteredSemesterMutation } from "../../../redux/features/admin/courseManagement";
+import { useNavigate } from "react-router-dom";
 
 const SemesterRegistration = () => {
     const [addSemester] = useAddRegisteredSemesterMutation()
     const { data: allAcademicSemester } = useGetAllSemestersQuery([
         { name: 'sort', value: 'year' }
     ])
+
+    const navigate = useNavigate()
 
     const academicSemesterOptions = allAcademicSemester?.data?.map(item => ({
         value: item?._id,
@@ -41,6 +44,7 @@ const SemesterRegistration = () => {
                 toast.error(res.error.data.message, { id: toastId });
             } else {
                 toast.success('Semester created', { id: toastId });
+                navigate('/admin/registered-semesters')
             }
         } catch (err) {
             toast.error('Something went wrong', { id: toastId });

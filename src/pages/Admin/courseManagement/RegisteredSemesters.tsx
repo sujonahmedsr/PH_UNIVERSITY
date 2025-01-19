@@ -58,7 +58,6 @@ const RegisteredSemesters = () => {
           } catch (err) {
             toast.error('Something went wrong', { id: toastId });
           }
-        updateSemesterStatus(updateData)
     }
 
     const menuProps = {
