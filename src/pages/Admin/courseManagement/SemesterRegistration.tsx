@@ -10,8 +10,10 @@ import { useGetAllSemestersQuery } from "../../../redux/features/admin/academicM
 import { semesterStatusOptions } from "../../../constance/semester";
 import { toast } from "sonner";
 import { TResponse } from "../../../types/globalTypes";
+import { useAddRegisteredSemesterMutation } from "../../../redux/features/admin/courseManagement";
 
 const SemesterRegistration = () => {
+    const [addSemester] = useAddRegisteredSemesterMutation()
     const { data: allAcademicSemester } = useGetAllSemestersQuery([
         { name: 'sort', value: 'year' }
     ])
@@ -21,7 +23,7 @@ const SemesterRegistration = () => {
         label: `${item?.name} ${item?.year}`
     }))
 
-    const onsubmit: SubmitHandler<FieldValues> = (data) => {
+    const onsubmit: SubmitHandler<FieldValues> = async(data) => {
         const toastId = toast.loading('Creating...');
 
         const semesterData = {
